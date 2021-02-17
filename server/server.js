@@ -7,6 +7,19 @@ const io = require("socket.io")(3000, {
   }
 });
 
+const rooms = {};
+
 io.on("connection", (socket) => {
-  console.log("here");
+  socket.on("join-room", (data) => {
+    const user = { id: socket.id, name: data.name, socket: socket };
+    let room = rooms[data.roomId];
+    if (room == null) {
+      room = { users: [], id: data.roomId };
+      rooms[data.roomId] = room;
+    }
+
+    room.users.push(user);
+    socket.join(room.id);
+    console.log(room);
+  });
 });

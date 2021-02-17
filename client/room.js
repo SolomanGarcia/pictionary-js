@@ -17,6 +17,7 @@ const messageElement = document.querySelector("[data-messages]");
 const readyButton = document.querySelector("[data-ready-btn]");
 const canvas = document.querySelector("[data-canvas]");
 
+socket.emit("join-room", { name: name, roomId: roomId });
 endRound();
 
 function endRound() {
