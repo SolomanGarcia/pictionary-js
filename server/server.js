@@ -20,6 +20,9 @@ io.on("connection", (socket) => {
 
     room.users.push(user);
     socket.join(room.id);
-    console.log(room);
+
+    socket.on("disconnect", () => {
+      room.users = room.users.filter((u) => u !== user);
+    });
   });
 });
