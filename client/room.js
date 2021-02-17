@@ -20,6 +20,11 @@ const canvas = document.querySelector("[data-canvas]");
 socket.emit("join-room", { name: name, roomId: roomId });
 endRound();
 
+readyButton.addEventListener("click", () => {
+  hide(readyButton);
+  socket.emit("ready");
+});
+
 function endRound() {
   hide(guessForm);
 }
