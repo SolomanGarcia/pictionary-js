@@ -27,6 +27,8 @@ io.on("connection", (socket) => {
       if (room.users.every((u) => u.ready)) {
         room.word = getRandomEntry(WORDS);
         room.guesser = getRandomEntry(room.users);
+        io.to(room.guesser.id).emit("start-drawer", room.word);
+        room.guesser.socket.to(room.id).emit("start-guesser");
       }
     });
 
