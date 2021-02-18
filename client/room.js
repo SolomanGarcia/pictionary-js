@@ -18,6 +18,8 @@ const readyButton = document.querySelector("[data-ready-btn]");
 const canvas = document.querySelector("[data-canvas]");
 
 socket.emit("join-room", { name: name, roomId: roomId });
+socket.on("start-drawer", startRoundDrawer);
+socket.on("start-guesser", startRoundGuesser);
 endRound();
 
 readyButton.addEventListener("click", () => {
@@ -25,10 +27,22 @@ readyButton.addEventListener("click", () => {
   socket.emit("ready");
 });
 
+function startRoundDrawer(word) {
+  wordElement.innerText = word;
+}
+
+function startRoundGuesser() {
+  show(guessForm);
+}
+
 function endRound() {
   hide(guessForm);
 }
 
 function hide(element) {
   element.classList.add("hide");
+}
+
+function show(element) {
+  element.classList.remove("hide");
 }
